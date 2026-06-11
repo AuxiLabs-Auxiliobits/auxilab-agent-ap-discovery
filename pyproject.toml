@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "auxilab-agent-ap-discovery"
+version = "0.1.0"
+description = "Agentic AI · AP process mapping and automation candidate scoring from unstructured stakeholder interview transcripts"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+keywords = ["agentic-ai", "mcp", "finance", "ap-automation", "auxiliobits"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/AuxiLabs-Auxiliobits/auxilab-agent-ap-discovery"
+Organisation = "https://github.com/AuxiLabs-Auxiliobits"
+Website = "https://auxiliobits.com/auxilab"
