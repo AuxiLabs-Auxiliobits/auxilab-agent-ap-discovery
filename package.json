@@ -1,0 +1,14 @@
+{
+  "name": "auxilab-agent-ap-discovery",
+  "version": "1.0.0",
+  "description": "AP Process Discovery Agent",
+  "scripts": {
+    "install:all": "npm install && cd frontend && npm install && cd ../backend && .\\venv\\Scripts\\python.exe -m pip install -r requirements.txt",
+    "start:backend": "cd backend && .\\venv\\Scripts\\python.exe -m uvicorn main:app --reload --port 8000 --ws=websockets",
+    "start:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

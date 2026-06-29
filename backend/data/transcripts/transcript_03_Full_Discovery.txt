@@ -1,0 +1,33 @@
+**Interviewer (Aria):** Welcome! Today we are conducting a complete Accounts Payable discovery assessment. To ensure our AI automation model runs with 100% grounded financial projections, let's start with your baseline operational metrics. Could you state your currency, annual invoice volume, staffing, labour rate, and exception frequency?
+
+**AP Manager (David):** Absolutely. All our financial figures, invoices, and accounting ledgers operate in US Dollars (USD). We process an annual volume of exactly 60,000 invoices per year across our enterprise, averaging 5,000 invoices per month. To handle this workload, we have a total team of 8 full-time equivalent employees (8 FTEs) dedicated to AP processing. Our fully-loaded average hourly labour rate for our AP specialists is $35 per hour. In terms of exceptions, our current manual exception rate is 15%, primarily driven by purchase order discrepancies and missing goods receipts.
+
+**Interviewer (Aria):** Perfect. That gives us all the exact baseline quantitative facts needed for our automated ROI model. Now, please walk me step-by-step through your end-to-end As-Is process from the moment an invoice enters your company.
+
+**AP Specialist (Sarah):** Sure! The process follows 8 main steps:
+
+**Step 1: Ingestion & Document Downloading**
+Vendor invoices arrive digitally via email attachments to our central shared mailbox (ap-invoices@globalcorp.com) as PDFs or scanned TIFF images, along with a few paper invoices received via postal mail. An AP clerk opens the mailbox, downloads each invoice document, and saves it to a structured SharePoint repository folder named `Incoming_Invoices`.
+
+**Step 2: Intelligent Data Extraction & Header Entry**
+The clerk opens the invoice PDF on one monitor and logs into our primary ERP system, SAP S/4HANA, on the second monitor. They manually key in the header details into SAP, including Vendor Name, Tax ID, Invoice Number, Invoice Date, Total Amount, Tax Amount, and Purchase Order Number.
+
+**Step 3: Line-Item Details & GL Coding**
+Next, the clerk keys in individual line-item details (item descriptions, quantities, unit prices, and cost center numbers) into SAP. For non-PO overhead invoices, they determine the appropriate General Ledger (GL) account code based on a standard chart of accounts matrix.
+
+**Step 4: Three-Way PO Matching Verification**
+Once entered, SAP performs an automated 3-way match, comparing the invoice line items against the original Purchase Order (PO) and the Goods Receipt (GR) logged by the warehouse team. 
+
+**Step 5: Discrepancy & Exception Handling**
+If a 3-way match fails (which happens for our 15% exception volume due to price variances exceeding our $50 tolerance threshold or missing goods receipts), the clerk flags the invoice as "Blocked for Payment" in SAP. They then compose an email in Outlook to the Procurement Buyer or Receiving Manager, attaching the invoice to resolve the discrepancy.
+
+**Step 6: Approval Routing Workflow**
+If the invoice passes matching, it enters approval routing based on our corporate approval matrix. Invoices under $2,500 are automatically approved. Invoices over $2,500 require digital sign-off from the relevant Department Director in SAP workflow before payment authorization.
+
+**Step 7: Payment Batch Creation & Bank Execution**
+On Thursday afternoons, our treasury specialist extracts approved invoices from SAP, generates an ACH payment file (NACHA format), logs into our online banking portal (JPMorgan Chase Access), and uploads the payment batch for execution.
+
+**Step 8: Month-End Financial Reconciliation**
+At month-end, our accounting lead downloads the cleared bank settlement report and performs a line-by-line reconciliation against the SAP General Ledger in Excel to ensure zero financial discrepancies.
+
+**Interviewer (Aria):** This is a textbook, highly structured AP workflow. With all 5 critical baseline metrics (USD currency, 60,000 annual volume, 8 FTEs, $35/hr rate, 15% exception rate) explicitly grounded, our AI pipeline can now compute exact ROI, ACS feasibility, and project timelines automatically without requiring any manual clarifying questions. Thank you!

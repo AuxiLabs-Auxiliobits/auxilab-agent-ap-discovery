@@ -1,0 +1,21 @@
+**Interviewer:** Can you walk me through your current Accounts Payable process?
+
+**AP Clerk (Sarah):** Sure. It starts when invoices arrive. We receive most of them via email as PDF attachments to our central AP inbox. Every morning, I go through the inbox, download the PDFs, and save them to a shared network drive. 
+
+Then, I open up our ERP system, which is SAP, and I manually key in all the header and line item data from the PDFs into SAP. We process about 200 to 250 invoices a week, so this data entry part takes up most of my mornings. 
+
+**Interviewer:** What happens after the data is entered?
+
+**Sarah:** Once the invoice is in SAP, I have to do a 3-way match. I check if the invoice matches the original Purchase Order (PO) and the Goods Receipt. If everything matches perfectly, the invoice is marked as clear for payment.
+
+**Interviewer:** Do they usually match perfectly?
+
+**Sarah:** Unfortunately, no. About 30% of the time there's a discrepancy—maybe the price is different or the quantity received doesn't match what was billed. When that happens, I have to pause. I email the procurement team or the warehouse manager to figure out what went wrong. This back-and-forth can take days, and sometimes I have to chase them down on Teams to get an answer. 
+
+**Interviewer:** How are approvals handled?
+
+**Sarah:** If the invoice is under $1,000 and it matches the PO, it's auto-approved. But anything over $1,000 has to be approved by a department manager. I literally have to download a report from SAP, attach the original invoice PDF, and email it to the manager asking for approval. Sometimes they forget, and the vendor gets angry because we pay late.
+
+**Interviewer:** And the final step, payments?
+
+**Sarah:** On Thursday afternoons, our controller, Mike, logs into SAP and creates a payment batch. He generates an ACH file and uploads it to our bank portal on Friday mornings. Finally, at the end of the month, Lisa from accounting takes the bank statement and does a manual reconciliation in Excel against the SAP ledger to make sure everything cleared. It's a lot of manual work!

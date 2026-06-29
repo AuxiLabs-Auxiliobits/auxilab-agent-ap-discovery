@@ -1,0 +1,271 @@
+# AP Process Assessment Report
+
+## Executive Summary
+
+An assessment of 10 AP steps identified 6 priority automation targets (average ACS: 7.2), led by Data Extraction (90% effort reduction), PO Matching (95%), and Approval Routing (100%). Implementing these requires a one-time cost of $170,400, with a steady-state payback period of 54.4 months. At mature steady-state, the project targets an 86.2% overall effort reduction, freeing 2.42 FTE and generating $130,426 in gross annual labour savings ($37,606 net annual savings after costs; $0 other benefits). Realistically, the Year-1 ramp-up will realize a lower range of $71,734 to $91,298 in labour savings, freeing 1.33 to 1.69 FTE.
+
+## ⚠️ Data Confidence
+
+The following **critical facts were not stated** in the source material. The figures below use clearly-labelled assumptions for these — provide them for an accurate, grounded ROI:
+
+- **Loaded hourly labour rate** — not provided
+- **Total FTE on process** — not provided
+
+## Systems Identified
+
+- Email
+- Shared network drive
+- SAP
+- Teams
+- Bank Portal
+- Excel
+
+## Roles Identified
+
+- AP Clerk
+- Procurement Team
+- Warehouse Manager
+- Department Manager
+- Controller
+- Accountant
+
+## Grounded Discovery Facts
+
+| Fact | Value (as captured from source) |
+|------|----------------------------------|
+| Currency | USD |
+| Volume (as stated) | 200 to 250 invoices a week |
+| Annual volume | 11,700 |
+| Exception rate | 30% |
+| Exception breakdown | Price is different or the quantity received doesn't match what was billed. |
+| Approval matrix | Invoices under $1,000 that match the PO are auto-approved. Invoices over $1,000 must be approved by a department manager. |
+
+## Process Map
+
+| # | Step | Description & Status | Role | Systems | Time (min) | Freq. | Manual? |
+|---|------|----------------------|------|---------|------------|-------|---------|
+| 1 | Download Invoices from AP Inbox | **[Fully Automatable]** Access the central AP email inbox, download invoice PDF attachments, and save them to a shared network drive. | AP Clerk | Email, Shared network drive | 2 | 100% | Manual |
+| 2 | Log into SAP ERP | **[Fully Automatable]** Log into the SAP ERP system to prepare for invoice data entry. | AP Clerk | SAP | 1 | 100% | Manual |
+| 3 | Manually Key Invoice Data into SAP | **[Fully Automatable]** Manually enter all header and line item data from the downloaded invoice PDFs into SAP. | AP Clerk | SAP | 5 | 100% | Manual |
+| 4 | Perform 3-Way Match | **[Fully Automatable]** Verify the invoice against the original Purchase Order (PO) and the Goods Receipt in SAP. | AP Clerk | SAP | 4 | 100% | Manual |
+| 5 | Resolve Matching Discrepancies | **[Partially Automatable]** For invoices with price or quantity mismatches, pause processing and contact the procurement team or warehouse manager via email or Teams to resolve the issue. | AP Clerk | Email, Teams, SAP | 15 | 30% | Manual |
+| 6 | Route High-Value Invoices for Approval | **[Fully Automatable]** For invoices over $1,000, download a report from SAP, attach the original invoice PDF, and email it to the department manager for manual approval. | AP Clerk | SAP, Email | 10 | 30% | Manual |
+| 7 | Log into SAP (Controller) | **[Fully Automatable]** The Controller logs into SAP on Thursday afternoons to prepare for payment processing. | Controller | SAP | 1 | 100% | Manual |
+| 8 | Create Payment Batch | **[Fully Automatable]** Generate a payment batch and export the ACH file from SAP. | Controller | SAP | 15 | 100% | Manual |
+| 9 | Upload ACH File to Bank Portal | **[Partially Automatable]** Upload the generated ACH payment file to the bank portal on Friday mornings to execute payments. | Controller | Bank Portal | 10 | 100% | Manual |
+| 10 | Perform Monthly Bank Reconciliation | **[Partially Automatable]** At the end of the month, perform a manual reconciliation in Excel, matching the bank statement against the SAP ledger. | Accountant | Excel, SAP | 120 | 100% | Manual |
+
+## Automation Candidate Scores
+
+| # | Step | Rule-Based | Data Structure | Volume | **ACS** | Priority? |
+|---|------|------------|----------------|--------|---------|-----------|
+| 1 | Download Invoices from AP Inbox | 10/10 | 8/10 | 9/10 | **9.0** | YES |
+| 2 | Log into SAP ERP | 10/10 | 10/10 | 4/10 | **8.0** | YES |
+| 3 | Manually Key Invoice Data into SAP | 8/10 | 4/10 | 9/10 | **7.0** | - |
+| 4 | Perform 3-Way Match | 9/10 | 9/10 | 9/10 | **9.0** | YES |
+| 5 | Resolve Matching Discrepancies | 3/10 | 5/10 | 5/10 | **4.3** | - |
+| 6 | Route High-Value Invoices for Approval | 9/10 | 8/10 | 5/10 | **7.3** | YES |
+| 7 | Log into SAP (Controller) | 10/10 | 10/10 | 2/10 | **7.3** | YES |
+| 8 | Create Payment Batch | 9/10 | 9/10 | 3/10 | **7.0** | - |
+| 9 | Upload ACH File to Bank Portal | 9/10 | 10/10 | 3/10 | **7.3** | YES |
+| 10 | Perform Monthly Bank Reconciliation | 8/10 | 8/10 | 2/10 | **6.0** | - |
+
+## Delivery Timeline Projection
+
+> ⚠️ **Estimate only.** This timeline is generated by an AI model from the process complexity signals, then mathematically reconciled. It is a directional planning estimate — not a delivery commitment — and will vary with your team's velocity, environment readiness and the real complexity of exceptions.
+
+**Estimated Full E2E Timeline:** **148 days**
+
+*The project is structured into a 4-phase delivery lifecycle. Phase 1 establishes foundational, low-risk automations (email downloading and SAP logins). Phase 2 implements core transactional logic including 3-way matching and batch creation. Phase 3 tackles the high-complexity intelligent document processing (IDP) for invoice extraction, bank portal MFA integration, and complex reconciliation logic. Phase 4 is dedicated to comprehensive UAT, hardening, and hypercare. The recommended team composition includes 1 Lead RPA Architect, 2 Senior RPA Developers, 1 IDP/AI Specialist, and 1 dedicated QA Analyst.*
+
+### Phase 1: Quick Wins (15 days)
+- **Steps:** Download Invoices from AP Inbox, Log into SAP ERP, Log into SAP (Controller)
+- **Rationale:** This phase groups simple, highly rule-based steps that establish the foundational connection to SAP and the initial email ingestion. These steps have low exception rates and high automation confidence, allowing for rapid initial deployment.
+- **Breakdown:** 8 Dev | 4 Test | 3 Review
+
+### Phase 2: Core Automation (28 days)
+- **Steps:** Perform 3-Way Match, Route High-Value Invoices for Approval, Create Payment Batch
+- **Rationale:** This phase automates the core transactional logic within SAP. It involves multi-system navigation, structured data comparisons for the 3-way match, and conditional routing based on invoice value thresholds.
+- **Breakdown:** 16 Dev | 8 Test | 4 Review
+
+### Phase 3: Intelligent Processing (82 days)
+- **Steps:** Manually Key Invoice Data into SAP, Resolve Matching Discrepancies, Upload ACH File to Bank Portal, Perform Monthly Bank Reconciliation
+- **Rationale:** This phase contains the most complex and advanced steps. It incorporates AI-driven Intelligent Document Processing (IDP) for unstructured invoice extraction, complex Excel-to-SAP reconciliation logic, and bank portal integration requiring multi-factor authentication (MFA) and human-in-the-loop (HITL) approval workflows.
+- **Breakdown:** 51 Dev | 26 Test | 5 Review
+
+### Phase 4: UAT, Hardening & Deploy (23 days)
+- **Steps:** Download Invoices from AP Inbox, Log into SAP ERP, Manually Key Invoice Data into SAP, Perform 3-Way Match, Resolve Matching Discrepancies, Route High-Value Invoices for Approval, Log into SAP (Controller), Create Payment Batch, Upload ACH File to Bank Portal, Perform Monthly Bank Reconciliation
+- **Rationale:** Dedicated entirely to end-to-end integration testing, user acceptance testing (UAT) across all business roles, final security sign-offs for banking transactions, and a structured hypercare period to monitor production runs.
+- **Breakdown:** 0 Dev | 18 Test | 5 Review
+
+## Financial ROI Projection (computed)
+
+These figures are computed deterministically from the grounded discovery facts (volume, labour rate, currency) and a probability-weighted handling time — not estimated by the model.
+
+> ⚠️ **Directional projection, not a guarantee.** The maths is exact, but several inputs (per-step time savings, implementation cost and maintenance %) are AI/heuristic estimates. Treat ROI and payback as a decision-grade range and refine them with your real volume, hourly rate and quoted build cost.
+
+| Metric | Value |
+|--------|-------|
+| Currency | USD |
+| Annual transaction volume | 11,700 |
+| Loaded hourly rate | $35 |
+| Handling time / transaction (before → after) | 22.17 → 3.06 min |
+| Annual labour savings (gross, steady-state ceiling) | $130,426 |
+| ↳ Realistic Year-1 labour savings (ramp) | $71,734 – $91,298 |
+| One-time implementation cost | $170,400 |
+| Annual maintenance & licensing | $92,820 |
+| **Net annual savings (Yr 1, after costs)** | $37,606 |
+| Payback period | 54.4 months |
+| ROI (Year 1) | -78% |
+| ROI (3-year) | -34% |
+| Current effort (FTE) | 2.81 implied |
+| FTE capacity freed (steady-state ceiling) | 2.42 |
+| ↳ Realistic Year-1 FTE freed (ramp) | 1.33 – 1.69 |
+| Effort reduction (steady-state / Year-1) | 86.2% / 47.4–60.3% |
+
+**Assumptions used (provide real values to remove these):**
+
+- No hourly labour rate stated — assumed $35/hr. Provide the real rate for an accurate ROI.
+- Per-step effort reductions were capped at 95% — even fully automated steps retain residual human effort (monitoring, output validation, bot exceptions).
+- Headline figures (86.2% effort reduction, 2.42 FTE freed, $130,426 labour savings) are the STEADY-STATE CEILING. A realistic Year-1 ramp realizes ~55-70% of that ($71,734-$91,298 labour savings, ~1.33-1.69 FTE) as adoption, exception-model tuning and change management mature.
+
+> Implementation/maintenance benchmarks are midpoints of standard RPA delivery ranges, shown in the project currency without FX conversion. Labour savings use the stated currency and rate, and handling times are calibrated to the stated team size so savings never exceed the team's actual annual cost. Headline labour-savings, effort-reduction and FTE-freed figures are the mature steady-state ceiling; the Year-1 ramp rows show the realistic first-year realization. Any benefit stated in a different currency than the base is converted using approximate reference FX rates (not live rates).
+
+## Top Automation Opportunities
+
+### Manually Key Invoice Data into SAP -> Data Extraction
+
+**Estimated Effort Reduction:** 90%
+
+**Manual Process:** The AP Clerk opens each downloaded invoice PDF on one screen and manually keys the header details (vendor name, invoice number, date, tax, total) and line-item details (item codes, quantities, unit prices) into the SAP ERP system. This manual data entry takes approximately 5 minutes per invoice.
+
+**Automated Process:** Implement an Intelligent Document Processing (IDP) solution powered by AI and OCR to automatically extract header and line-item data from the invoice PDFs. An RPA bot will then take this structured data and input it directly into SAP via API or user interface automation.
+
+**Time & Cost Reduction:** Reduces manual data entry time from 5 minutes to 0 minutes for standard invoices, saving up to 100% of manual keying time (with a small percentage routed for human review only if OCR confidence scores are low).
+
+
+### Perform 3-Way Match -> PO Matching
+
+**Estimated Effort Reduction:** 95%
+
+**Manual Process:** The AP Clerk manually navigates to the matching screen in SAP, pulls up the corresponding Purchase Order (PO) and Goods Receipt (GR), and manually compares the quantities and prices across all three documents to ensure they match within tolerance limits. This takes about 4 minutes per invoice.
+
+**Automated Process:** An RPA bot or SAP-native workflow engine can automatically retrieve the PO and GR numbers associated with the invoice, compare the line-item quantities and unit prices, and verify if they match within the predefined business tolerance levels.
+
+**Time & Cost Reduction:** Reduces matching time from 4 minutes to less than 10 seconds per invoice, saving 100% of manual effort for matching-compliant invoices.
+
+
+### Route High-Value Invoices for Approval -> Approval Routing
+
+**Estimated Effort Reduction:** 100%
+
+**Manual Process:** For invoices exceeding $1,000, the AP Clerk manually downloads a report or invoice record from SAP, attaches the original invoice PDF, drafts an email, and sends it to the appropriate department manager to request manual approval. This takes about 10 minutes per high-value invoice.
+
+**Automated Process:** An automated workflow engine or RPA bot can check the invoice value in SAP. If it exceeds $1,000, the system automatically triggers an approval workflow, sending an interactive email or Teams notification with the invoice details and PDF attached directly to the correct manager, allowing them to approve or reject with a single click.
+
+**Time & Cost Reduction:** Reduces the AP Clerk's manual routing time from 10 minutes to 0 minutes, saving 100% of the clerk's administrative effort.
+
+
+### Resolve Matching Discrepancies -> Exception Handling
+
+**Estimated Effort Reduction:** 66%
+
+**Manual Process:** When a mismatch is identified, the AP Clerk must pause processing, investigate the root cause, and manually draft and send emails or Teams messages to the procurement team, warehouse manager, or vendor to resolve the price or quantity discrepancy. This takes about 15 minutes per occurrence.
+
+**Automated Process:** An RPA bot can automatically flag the mismatch in SAP, draft a standardized email containing the specific discrepancy details (e.g., PO price vs. Invoice price), and send it to the responsible buyer or warehouse contact. However, the actual resolution, negotiation, and decision-making must be handled by humans.
+
+**Time & Cost Reduction:** Reduces manual effort from 15 minutes to 5 minutes per discrepancy by automating the identification, data gathering, and initial communication drafting, saving approximately 66% of the clerk's time.
+
+
+### Perform Monthly Bank Reconciliation -> Audit Reporting
+
+**Estimated Effort Reduction:** 83%
+
+**Manual Process:** At the end of each month, the Accountant downloads the bank statement and the SAP general ledger, opens both in Excel, and manually matches transactions (deposits, withdrawals, fees) using VLOOKUPs or manual comparison. They then investigate any unmatched items. This takes about 120 minutes.
+
+**Automated Process:** An RPA bot can automatically download the bank statement and SAP ledger, import them into Excel or a reconciliation tool, and execute matching rules (matching by date, amount, and reference number). The bot will automatically reconcile 80-90% of the standard transactions and generate an exception report containing only the unmatched items for the Accountant to investigate.
+
+**Time & Cost Reduction:** Reduces manual reconciliation time from 120 minutes to 20 minutes, as the Accountant only needs to review the pre-compiled exception report, saving approximately 83% of the manual effort.
+
+
+### Download Invoices from AP Inbox -> Invoice Capture
+
+**Estimated Effort Reduction:** 100%
+
+**Manual Process:** The AP Clerk manually monitors the central AP email inbox throughout the day. For every incoming email containing an invoice, the clerk opens the email, downloads the PDF attachment, and manually saves it to a specific folder on a shared network drive. This repetitive task takes approximately 2 minutes per invoice.
+
+**Automated Process:** An RPA bot can be configured to continuously monitor the central AP email inbox. Upon receiving an email, the bot will automatically detect, extract, and validate the PDF invoice attachment, then save it to the designated shared network drive folder using a standardized, structured naming convention.
+
+**Time & Cost Reduction:** Reduces manual processing time from 2 minutes per invoice to 0 minutes, saving 100% of the manual effort for this step.
+
+
+### Create Payment Batch -> Payment Preparation
+
+**Estimated Effort Reduction:** 100%
+
+**Manual Process:** The Controller manually selects the approved invoices due for payment in SAP, runs the payment proposal, reviews the list, generates the payment batch, and exports the resulting ACH file to a local folder. This takes about 15 minutes.
+
+**Automated Process:** An RPA bot can be scheduled to run every Thursday afternoon. It will automatically select all approved invoices due for payment, execute the payment run in SAP, generate the payment batch, and export the ACH file to a secure, designated folder.
+
+**Time & Cost Reduction:** Reduces manual processing time from 15 minutes to 0 minutes, saving 100% of the manual effort for batch creation.
+
+
+### Upload ACH File to Bank Portal -> Payment Preparation
+
+**Estimated Effort Reduction:** 80%
+
+**Manual Process:** The Controller logs into the corporate bank portal on Friday mornings, navigates to the ACH upload section, selects the exported ACH file from their local drive, uploads it, and waits for the confirmation screen. This takes about 10 minutes.
+
+**Automated Process:** An RPA bot can log into the bank portal (using secure credentials), navigate to the upload screen, and upload the ACH file. However, due to strict banking security protocols and segregation of duties, a human Controller must perform the final multi-factor authentication (MFA) and click 'Approve/Release' to execute the actual transfer of funds.
+
+**Time & Cost Reduction:** Reduces manual effort from 10 minutes to 2 minutes, as the Controller only needs to perform the final security approval, saving 80% of the manual upload and navigation time.
+
+
+### Log into SAP ERP -> Invoice Capture
+
+**Estimated Effort Reduction:** 100%
+
+**Manual Process:** The AP Clerk manually launches the SAP ERP application, enters their personal login credentials, navigates past any system notifications, and establishes an active session to prepare for data entry. This takes approximately 1 minute per session.
+
+**Automated Process:** An RPA bot can securely retrieve encrypted login credentials from a centralized credential vault, launch the SAP ERP application, input the credentials, and establish an active session automatically in the background.
+
+**Time & Cost Reduction:** Reduces manual login time from 1 minute to 0 minutes, saving 100% of the manual effort per session.
+
+
+### Log into SAP (Controller) -> Payment Preparation
+
+**Estimated Effort Reduction:** 100%
+
+**Manual Process:** The Controller manually opens SAP on Thursday afternoons, enters their credentials, completes any MFA requirements, and navigates to the payment module. This takes about 1 minute.
+
+**Automated Process:** An RPA bot can securely log into SAP using the Controller's encrypted credentials stored in a secure vault to prepare the session, or the entire payment batch generation process can be scheduled to run automatically without manual login.
+
+**Time & Cost Reduction:** Saves 1 minute per week for the Controller, reducing manual login effort to 0.
+
+
+## Manual & Complex Processes
+
+The following processes are currently flagged as difficult to fully automate.
+
+### 5. Resolve Matching Discrepancies (15m)
+
+**Explanation:** Resolving discrepancies requires human judgment, negotiation, and subjective decision-making to determine why a price or quantity mismatch occurred and how to settle it with the vendor or internal departments.
+
+- **Human Strengths (Plus Points):** Humans excel at communication, negotiation, understanding context, and resolving complex disputes that do not follow rigid rules.
+- **Bot Limitations (Minus Points):** Bots cannot make subjective decisions, negotiate pricing disputes, or interpret unstructured, conversational replies from vendors or internal staff.
+
+
+### 10. Perform Monthly Bank Reconciliation (120m)
+
+**Explanation:** While the majority of transactions can be matched automatically, resolving complex discrepancies, bank fees, timing differences, or unexplained ledger variances requires accounting expertise and investigation.
+
+- **Human Strengths (Plus Points):** Accountants possess the professional judgment, historical context, and investigative skills needed to resolve complex ledger discrepancies and adjust journal entries.
+- **Bot Limitations (Minus Points):** Bots cannot investigate unknown variances, contact banks to resolve errors, or make subjective accounting adjustments without predefined rules.
+
+
+## Pain Points Identified
+
+- Manual data entry of invoice header and line items is time-consuming.
+- High discrepancy rate (30%) requires slow, manual back-and-forth communication over email and Teams.
+- Manual email-based approval routing for invoices over $1,000 leads to delays and late payments.
+- Manual monthly bank reconciliation in Excel.
