@@ -174,3 +174,15 @@ the BPMN editor, multilingual audio, PDD/SDD Word export, and developer API keys
 ## License
 
 See [LICENSE](LICENSE).
+
+
+---
+
+## Built By
+
+| Name | GitHub |
+|------|--------|
+| Sunaina Aggarwal | [@SunainaAggarwal-Auxi](https://github.com/SunainaAggarwal-Auxi) |
+| Robinpreet Singh | [@robinpreetsingh-16](https://github.com/robinpreetsingh-16) |
+
+Built during the **AuxiLab Founding Hackathon** by [Auxiliobits Technologies](https://auxiliobits.com) · [AuxiLab Catalogue](https://auxiliobits.com/auxilab)
